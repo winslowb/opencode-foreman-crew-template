@@ -41,7 +41,7 @@ The script backs up `~/.config/opencode/opencode.json` first.
 ## Test in a disposable repo first
 
 ```bash
-mkdir -p /tmp/karl-crew-smoke && cd /tmp/karl-crew-smoke
+mkdir -p /tmp/foreman-crew-smoke && cd /tmp/foreman-crew-smoke
 git init
 printf 'console.log("hello")
 ' > index.js
