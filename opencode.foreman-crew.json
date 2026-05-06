@@ -1,0 +1,203 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "foreman",
+  "agent": {
+    "foreman": {
+      "mode": "primary",
+      "model": "ollama/kimi-k2.5",
+      "description": "OpenCode repo-local foreman: routes coding work through focused subagents and enforces review/test/security gates.",
+      "tools": {
+        "task": true,
+        "todowrite": true,
+        "todoread": true,
+        "bash": false,
+        "read": false,
+        "write": false,
+        "edit": false,
+        "list": false,
+        "glob": false,
+        "grep": false,
+        "webfetch": false
+      }
+    },
+    "scout": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Fast repo scout: project structure, files, commands, conventions, likely impact surface.",
+      "tools": {
+        "read": true,
+        "list": true,
+        "glob": true,
+        "grep": true
+      }
+    },
+    "analyst": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Deep code analyst: data flow, dependencies, risks, root-cause hypotheses.",
+      "tools": {
+        "read": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "lsp": true
+      }
+    },
+    "researcher": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "External/library researcher: docs, APIs, best practices. Use only when project context is insufficient.",
+      "tools": {
+        "read": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "webfetch": true
+      }
+    },
+    "architect": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Solution architect: design changes, interfaces, migration paths, integration points.",
+      "tools": {
+        "read": true,
+        "list": true,
+        "glob": true,
+        "grep": true
+      }
+    },
+    "planner": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Task planner: decomposes approved designs into atomic, verifiable implementation steps.",
+      "tools": {
+        "read": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "todowrite": true,
+        "todoread": true
+      }
+    },
+    "coder": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Implementation agent: writes new code and makes scoped changes after scout/plan context.",
+      "tools": {
+        "bash": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "lsp": true,
+        "todoread": true
+      }
+    },
+    "fixer": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Bug fixer: minimal root-cause fixes, especially after debugger/analyst diagnosis.",
+      "tools": {
+        "bash": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "lsp": true,
+        "todoread": true
+      }
+    },
+    "refactorer": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Refactoring agent: improves structure while preserving behavior; must run relevant tests.",
+      "tools": {
+        "bash": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "lsp": true,
+        "todoread": true
+      }
+    },
+    "reviewer": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Read-only code reviewer: correctness, maintainability, regressions, risky changes.",
+      "tools": {
+        "read": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "lsp": true,
+        "todoread": true
+      }
+    },
+    "tester": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Test engineer: writes/runs tests and verifies build/typecheck/lint where available.",
+      "tools": {
+        "bash": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "lsp": true,
+        "todoread": true
+      }
+    },
+    "security": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Read-only security reviewer: auth, tokens, sessions, secrets, PII, permissions, injection, supply-chain risks.",
+      "tools": {
+        "read": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "lsp": true,
+        "todoread": true
+      }
+    },
+    "documenter": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Documentation agent: updates README/API docs/runbooks only when useful and requested/needed.",
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "todoread": true
+      }
+    },
+    "devops": {
+      "mode": "subagent",
+      "model": "ollama/glm-5.1",
+      "description": "Infrastructure agent: CI/CD, Docker, configs, deployment scripts, operational checks.",
+      "tools": {
+        "bash": true,
+        "read": true,
+        "write": true,
+        "edit": true,
+        "list": true,
+        "glob": true,
+        "grep": true,
+        "todoread": true
+      }
+    }
+  },
+  "notes": "Template generated locally by Hermes/Karl. Merge manually into ~/.config/opencode/opencode.json; do not overwrite live config blindly. Primary OpenCode agent is named foreman to avoid confusion with Hermes/Karl."
+}
