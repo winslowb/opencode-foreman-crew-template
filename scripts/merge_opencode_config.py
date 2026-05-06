@@ -25,7 +25,7 @@ if conflicts:
 merged['agent'].update(tpl['agent'])
 # Keep user's existing provider/mcp/permission settings. Do not copy notes/default_agent unless absent.
 merged.setdefault('$schema', tpl.get('$schema', 'https://opencode.ai/config.json'))
-merged.setdefault('default_agent', cur.get('default_agent', 'karl'))
+merged.setdefault('default_agent', cur.get('default_agent') or tpl.get('default_agent', 'foreman'))
 
 print(f'Target config: {TARGET}')
 print(f'Agents to add: {", ".join(tpl["agent"].keys())}')
@@ -38,7 +38,7 @@ if args.dry_run:
     raise SystemExit(0)
 
 ts = datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
-backup = TARGET.with_suffix(TARGET.suffix + f'.backup.karl-crew-{ts}')
+backup = TARGET.with_suffix(TARGET.suffix + f'.backup.foreman-crew-{ts}')
 TARGET.parent.mkdir(parents=True, exist_ok=True)
 if TARGET.exists():
     backup.write_text(TARGET.read_text())
